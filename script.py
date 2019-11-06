@@ -23,8 +23,7 @@ phenotype = pd.read_csv(os.path.join(folder, fname_phenotypes), delimiter=";")
 # phenotype features of samples, mean over rings
 # this is in the order of mum name
 traits = {
-        trait: phenotype[phenotype["Trait"] == trait].sort_values(
-                "Mum_name").filter(regex="Ring").mean(axis=1) 
+        trait: phenotype[phenotype["Trait"] == trait].filter(regex="Ring")
         for trait in phenotype["Trait"].unique()
         }
 

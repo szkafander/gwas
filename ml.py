@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Oct 28 18:36:20 2019
 
-@author: tothp
 """
 
 
@@ -12,7 +10,7 @@ import pathlib
 import tensorflow as tf
 from sklearn.model_selection import KFold, train_test_split
 
-from typing import Iterable, Optional
+from typing import Iterable, List, Optional
 
 
 default_n_splits = 5
@@ -119,10 +117,9 @@ def train(
     ) -> dict:
     """ Trains a model using a k-fold cross validation scheme. Returns all
     trained models and estimates of network accuracy. """
-    n_splits = data.fold_generator.n_splits
     returns = dict("histories", [], "models", [], "metrics", [])
-    k = 0
-    for train_val_set, test_set in data.folds:
+    for k, [train_val_set, test_set] in enumerate(data.folds):
+        print("Fitting model to fold {}".format(k))
         path = os.path.join(path, str(k))
         train_x, train_y, val_x, val_y = train_test_split(
                 train_val_set.x,
@@ -146,4 +143,3 @@ def train(
         returns["models"].append(model_best)
         returns["metrics"].append(metrics)
         return returns
-

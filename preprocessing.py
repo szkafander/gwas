@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sun Oct 20 13:49:21 2019
 
-@author: tothp
 """
 
 
